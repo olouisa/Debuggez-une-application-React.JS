@@ -20,6 +20,7 @@ const Select = ({
     setValue(newValue);
     setCollapsed(newValue);
   };
+  
   return (
     <div className={`SelectContainer ${type}`} data-testid="select-testid">
       {label && <div className="label">{label}</div>}
@@ -49,7 +50,7 @@ const Select = ({
             </>
           )}
         </ul>
-        <input type="hidden" value={value || ""} name={name} />
+        <input type="hidden" value={value || ""} name={name}  />
         <button
           type="button"
           data-testid="collapse-button-testid"

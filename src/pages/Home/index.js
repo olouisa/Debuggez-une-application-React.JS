@@ -13,7 +13,7 @@ import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
-  const {last} = useData()
+  const {last} = useData();
   return <>
     <header>
       <Menu />
@@ -104,7 +104,7 @@ const Page = () => {
             </div>
           }
         >
-          {({ setIsOpened }) => (
+        {({ setIsOpened }) => (
             <Form
               onSuccess={() => setIsOpened(true)}
               onError={() => null}
