@@ -15,10 +15,16 @@ export const api = {
     return json.json();
   },
 };
-
 export const DataProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [data, setData] = useState(null);
+  const byDateCroissante = data?.events.sort((evtA, evtB) =>
+  new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
+);
+const last = byDateCroissante?.slice(byDateCroissante.length-1);
+console.log(last);
+console.log(byDateCroissante);
+
   const getData = useCallback(async () => {
     try {
       setData(await api.loadData());
@@ -30,13 +36,13 @@ export const DataProvider = ({ children }) => {
     if (data) return;
     getData();
   });
-  
+
   return (
     <DataContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
         data,
-        error,
+        error, last
       }}
     >
       {children}
@@ -49,5 +55,7 @@ DataProvider.propTypes = {
 }
 
 export const useData = () => useContext(DataContext);
+ 
+  
 
 export default DataContext;

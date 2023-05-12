@@ -12,8 +12,11 @@ import Form from "../../containers/Form";
 import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
 
+
 const Page = () => {
   const {last} = useData();
+  console.log(last);
+  console.log(last?.title);
   return <>
     <header>
       <Menu />
@@ -116,13 +119,15 @@ const Page = () => {
     <footer className="row">
       <div className="col presta">
         <h3>Notre derniére prestation</h3>
+        {last?.map((event) => 
         <EventCard
-          imageSrc={last?.cover}
-          title={last?.title}
-          date={new Date(last?.date)}
+          imageSrc={event.cover} 
+          title={event.title}
+          date={new Date(event.date)}
           small
           label="boom"
         />
+        )}
       </div>
       <div className="col contact">
         <h3>Contactez-nous</h3>
