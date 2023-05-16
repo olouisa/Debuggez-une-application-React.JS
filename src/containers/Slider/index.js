@@ -11,6 +11,7 @@ const Slider = () => {
   // const byDateDesc = data?.focus.sort((evtA, evtB) =>
   //   new Date(evtA.date) < new Date(evtB.date) ? 1 : -1
   // );
+  
 
   const nextCard = () => {
     setTimeout(
@@ -47,12 +48,8 @@ const Slider = () => {
           </div>
           <div className="SlideCard__paginationContainer">
             <div className="SlideCard__pagination">
-              {order.map((_, radioIdx) => (
-                <input
-                  key={`${event.id}`}
-                  type="radio"
-                  name="radio-button"
-                  checked={index === radioIdx}
+              {order?.map((_, radioIdx) => (
+                <input key={_.id} type="radio" name="radio-button" checked={index === radioIdx} readOnly
                 />
               ))}
             </div>
