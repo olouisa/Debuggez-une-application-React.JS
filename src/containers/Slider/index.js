@@ -7,27 +7,34 @@ import "./style.scss";
 const Slider = () => {
   const { data } = useData();
   const [index, setIndex] = useState(0);
-  const byDateDesc = data?.focus.sort((evtA, evtB) =>
-    new Date(evtA.date) < new Date(evtB.date) ? 1 : -1
-  );
+  const [order, setOrder] = useState(null);
+  // const byDateDesc = data?.focus.sort((evtA, evtB) =>
+  //   new Date(evtA.date) < new Date(evtB.date) ? 1 : -1
+  // );
+
   const nextCard = () => {
     setTimeout(
-      () => setIndex(index < byDateDesc.length-1 ? index + 1 : 0),
+      () => setIndex(index < order.length - 1 ? index + 1 : 0),
       5000
     );
   };
+
+
   useEffect(() => {
-    nextCard();    
+    nextCard();
+    setOrder(data?.focus.sort((evtA, evtB) =>
+      new Date(evtA.date) < new Date(evtB.date) ? 1 : -1
+    ));
+
   });
   return (
     <div className="SlideCardList">
-      {byDateDesc?.map((event, idx) => (
+      {order?.map((event, idx) => (
         <>
           <div
             key={event.title}
-            className={`SlideCard SlideCard--${
-              index === idx ? "display" : "hide"
-            }`}
+            className={`SlideCard SlideCard--${index === idx ? "display" : "hide"
+              }`}
           >
             <img src={event.cover} alt="forum" />
             <div className="SlideCard__descriptionContainer">
@@ -40,7 +47,7 @@ const Slider = () => {
           </div>
           <div className="SlideCard__paginationContainer">
             <div className="SlideCard__pagination">
-              {byDateDesc.map((_, radioIdx) => (
+              {order.map((_, radioIdx) => (
                 <input
                   key={`${event.id}`}
                   type="radio"
