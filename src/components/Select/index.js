@@ -2,8 +2,9 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { useState } from "react";
 import PropTypes from "prop-types";
-
+// import { useData } from "../../contexts/DataContext";
 import "./style.scss";
+
 
 const Select = ({
   selection,
@@ -12,15 +13,20 @@ const Select = ({
   titleEmpty,
   label,
   type = "normal",
+  
+  
 }) => {
   const [value, setValue] = useState();
   const [collapsed, setCollapsed] = useState(true);
   const changeValue = (newValue) => {
-    onChange();
+    onChange(newValue); 
     setValue(newValue);
     setCollapsed(newValue);
   };
-  
+  // const filtredCategory =
+  //   data?.events.filter( category => category.type === value);
+  // console.log(filtredCategory);
+  // console.log(data?.events);
   return (
     <div className={`SelectContainer ${type}`} data-testid="select-testid">
       {label && <div className="label">{label}</div>}
@@ -38,7 +44,8 @@ const Select = ({
                 </li>
               )}
               {selection.map((s) => (
-                <li key={s} onClick={() => changeValue(s)}>
+                <li key={s} onClick={() =>
+                  changeValue(s)} >
                   <input
                     defaultChecked={value === s}
                     name="selected"

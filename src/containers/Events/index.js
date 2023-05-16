@@ -10,14 +10,11 @@ import "./style.css";
 const PER_PAGE = 9;
 
 const EventList = () => {
+  
    const { data, error } = useData();
   const [type, setType] = useState();
   const [currentPage, setCurrentPage] = useState(1);
-  const filteredEvents = (
-    (!type
-      ? data?.events
-      : data?.events) || []
-  ).filter((event, index) => {
+  const filteredEvents = ((!type ? data?.events : data?.events.filter((d) =>  d.type === type)) || []).filter((event, index) => {
     if (
       (currentPage - 1) * PER_PAGE <= index &&
       PER_PAGE * currentPage > index
@@ -26,16 +23,22 @@ const EventList = () => {
     }
     return false;
   });
-
+ 
+  console.log(((!type ? data?.events : data?.events) || []));
+// console.log(filteredEvents);
 
   const changeType = (evtType) => {
     setCurrentPage(1);
     setType(evtType);
   };
+  
   const pageNumber = Math.floor((filteredEvents?.length || 0) / PER_PAGE) + 1;
   const typeList = new Set(data?.events.map((event) => event.type));
+  console.log(Array.from(typeList))
+
   return (
     <>
+   
       {error && <div>An error occured</div>}
       {data === null ? (
         "loading"
@@ -48,6 +51,7 @@ const EventList = () => {
           />
           <div id="events" className="ListContainer">
             {filteredEvents.map((event) => (
+             
               <Modal key={event.id} Content={<ModalEvent event={event} />}>
                 {({ setIsOpened }) => (
                   <EventCard
@@ -56,10 +60,16 @@ const EventList = () => {
                     title={event.title}
                     date={new Date(event.date)}
                     label={event.type}
-                  />
-                )}
+                  /> 
+                )                
+                }
+                
+                
               </Modal>
-            ))}
+              ))
+            }
+            
+            
           </div>
           <div className="Pagination">
             {[...Array(pageNumber || 0)].map((_, n) => (
@@ -74,5 +84,6 @@ const EventList = () => {
     </>
   );
 };
+
 
 export default EventList;

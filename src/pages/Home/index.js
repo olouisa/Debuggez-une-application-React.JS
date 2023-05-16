@@ -15,8 +15,7 @@ import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
   const {last} = useData();
-  console.log(last);
-  console.log(last?.title);
+  
   return <>
     <header>
       <Menu />
@@ -56,7 +55,7 @@ const Page = () => {
       </section>
       <section className="EventsContainer">
         <h2 className="Title">Nos réalisations</h2>
-        <EventList />
+        <EventList  />
       </section>
       <section className="PeoplesContainer">
         <h2 className="Title">Notre équipe</h2>
@@ -126,6 +125,7 @@ const Page = () => {
           date={new Date(event.date)}
           small
           label="boom"
+          key={event.id}
         />
         )}
       </div>
