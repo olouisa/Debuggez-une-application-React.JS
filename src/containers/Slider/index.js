@@ -11,32 +11,31 @@ const Slider = () => {
   // const byDateDesc = data?.focus.sort((evtA, evtB) =>
   //   new Date(evtA.date) < new Date(evtB.date) ? 1 : -1
   // );
-  
 
+  const data2 = data?.focus.length;
   const nextCard = () => {
     setTimeout(
-      () => setIndex(index < order.length - 1 ? index + 1 : 0),
+      () => setIndex(index < data2 - 1 ? index + 1 : 0),
       5000
     );
   };
 
 
   useEffect(() => {
-    
+
     setOrder(data?.focus.sort((evtA, evtB) =>
       new Date(evtA.date) < new Date(evtB.date) ? 1 : -1
     ));
     nextCard();
 
   });
-  
+
   return (
     <div className="SlideCardList">
       {order?.map((event, idx) => (
         <div key={event.id}>
-       
+
           <div
-            // key={event.title}
             className={`SlideCard SlideCard--${index === idx ? "display" : "hide"
               }`}
           >
