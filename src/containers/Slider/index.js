@@ -22,19 +22,21 @@ const Slider = () => {
 
 
   useEffect(() => {
-    nextCard();
+    
     setOrder(data?.focus.sort((evtA, evtB) =>
       new Date(evtA.date) < new Date(evtB.date) ? 1 : -1
     ));
+    nextCard();
 
   });
+  
   return (
     <div className="SlideCardList">
       {order?.map((event, idx) => (
-        <>
+        <div key={event.id}>
        
           <div
-            key={event.title}
+            // key={event.title}
             className={`SlideCard SlideCard--${index === idx ? "display" : "hide"
               }`}
           >
@@ -55,7 +57,7 @@ const Slider = () => {
               ))}
             </div>
           </div>
-        </>
+        </div>
       ))}
     </div>
   );
