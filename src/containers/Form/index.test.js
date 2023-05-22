@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import Form from "./index";
 
 describe("When Events is created", () => {
@@ -22,15 +22,8 @@ describe("When Events is created", () => {
         })
       );
       await screen.findByText("En cours");
-      await waitFor(
-        async () => {
-          await screen.findByText("Envoyer");
-          return expect(onSuccess).toHaveBeenCalled();
-        },
-        {
-          timeout: 1500,
-        }
-      );
+      await screen.findByText("Envoyer");
+      expect(onSuccess).toHaveBeenCalled();
     });
   });
 });
